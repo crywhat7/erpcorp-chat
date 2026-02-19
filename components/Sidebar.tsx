@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase, SCHEMA_ERP } from "@/lib/supabase/client";
-import { getSession, clearSession, isAdmin } from "@/lib/auth";
+import { getSession, clearSession } from "@/lib/auth";
 import { useTheme } from "@/components/ThemeProvider";
 import Avatar from "@/components/Avatar";
 import { useEffect, useState } from "react";
@@ -59,8 +59,6 @@ export default function Sidebar() {
     if (canal) setUnreadByCanal((prev) => ({ ...prev, [canal.id]: false }));
   }
 
-  const admin = isAdmin();
-
   return (
     <aside className="flex w-56 shrink-0 flex-col border-r border-slate-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
       <nav className="flex flex-col py-2">
@@ -103,18 +101,16 @@ export default function Sidebar() {
             )}
           </Link>
         ))}
-        {admin && (
-          <Link
-            href="/dashboard/canales"
-            className={`border-l-2 px-3 py-2 text-sm ${
-              pathname === "/dashboard/canales"
-                ? "border-black font-medium dark:border-white dark:text-white"
-                : "border-transparent text-slate-600 hover:bg-slate-50 dark:text-zinc-400 dark:hover:bg-zinc-800"
-            }`}
-          >
-            + Gestionar canales
-          </Link>
-        )}
+        <Link
+          href="/dashboard/canales"
+          className={`border-l-2 px-3 py-2 text-sm ${
+            pathname === "/dashboard/canales"
+              ? "border-black font-medium dark:border-white dark:text-white"
+              : "border-transparent text-slate-600 hover:bg-slate-50 dark:text-zinc-400 dark:hover:bg-zinc-800"
+          }`}
+        >
+          Gestionar canales
+        </Link>
         <div className="my-2 border-t border-slate-200 dark:border-zinc-700" />
         <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
           Secciones
@@ -149,24 +145,20 @@ export default function Sidebar() {
         >
           Recursos
         </Link>
-        {admin && (
-          <>
-            <div className="my-2 border-t border-slate-200 dark:border-zinc-700" />
-            <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-              Admin
-            </div>
-            <Link
-              href="/dashboard/usuarios"
-              className={`border-l-2 px-3 py-2 text-sm ${
-                pathname === "/dashboard/usuarios"
-                  ? "border-black font-medium dark:border-white dark:text-white"
-                  : "border-transparent text-slate-600 hover:bg-slate-50 dark:text-zinc-400 dark:hover:bg-zinc-800"
-              }`}
-            >
-              Usuarios
-            </Link>
-          </>
-        )}
+        <div className="my-2 border-t border-slate-200 dark:border-zinc-700" />
+        <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+          Configuración
+        </div>
+        <Link
+          href="/dashboard/usuarios"
+          className={`border-l-2 px-3 py-2 text-sm ${
+            pathname === "/dashboard/usuarios"
+              ? "border-black font-medium dark:border-white dark:text-white"
+              : "border-transparent text-slate-600 hover:bg-slate-50 dark:text-zinc-400 dark:hover:bg-zinc-800"
+          }`}
+        >
+          Control de usuarios
+        </Link>
         <div className="mt-auto border-t border-slate-200 pt-2 dark:border-zinc-700">
           <button
             type="button"

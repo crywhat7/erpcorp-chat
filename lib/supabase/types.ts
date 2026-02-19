@@ -63,4 +63,14 @@ export type Database = {
       recursos: { Row: Recurso; Insert: Omit<Recurso, "id">; Update: Partial<Recurso> };
     };
   };
+  erp_corp: {
+    Tables: {
+      usuarios: { Row: Usuario; Insert: Omit<Usuario, "id">; Update: Partial<Usuario> };
+      canales: { Row: Canal; Insert: Omit<Canal, "id">; Update: Partial<Canal> };
+      mensajes: { Row: Mensaje; Insert: Omit<Mensaje, "id">; Update: Partial<Mensaje> };
+      fases: { Row: Fase; Insert: Omit<Fase, "id">; Update: Partial<Fase> };
+      pasos: { Row: Paso; Insert: Omit<Paso, "id">; Update: Partial<Paso> };
+      recursos: { Row: Recurso; Insert: Omit<Recurso, "id">; Update: Partial<Recurso> };
+    };
+  };
 };

@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { supabase, SCHEMA_ERP } from "@/lib/supabase/client";
 import { getUserId, isAdmin } from "@/lib/auth";
 import Avatar from "@/components/Avatar";
 import type { Usuario } from "@/lib/supabase/types";
 
 export default function UsuariosPage() {
-  const router = useRouter();
   const admin = isAdmin();
   const currentUserId = getUserId();
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);

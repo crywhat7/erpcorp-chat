@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase, SCHEMA_ERP } from "@/lib/supabase/client";
 import { isAdmin } from "@/lib/auth";
@@ -17,7 +16,6 @@ function slugify(s: string) {
 }
 
 export default function CanalesPage() {
-  const router = useRouter();
   const admin = isAdmin();
   const [canales, setCanales] = useState<Canal[]>([]);
   const [editing, setEditing] = useState<string | null>(null);
