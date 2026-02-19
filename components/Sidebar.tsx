@@ -15,10 +15,16 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  const session = getSession();
+  const [mounted, setMounted] = useState(false);
+  const [session, setSessionState] = useState<ReturnType<typeof getSession>>(null);
   const [canales, setCanales] = useState<Canal[]>([]);
   const [unreadByCanal, setUnreadByCanal] = useState<UnreadMap>({});
   const currentUserId = session?.userId ?? null;
+
+  useEffect(() => {
+    setMounted(true);
+    setSessionState(getSession());
+  }, []);
 
   useEffect(() => {
     async function fetchCanales() {
@@ -67,9 +73,9 @@ export default function Sidebar() {
             href="/dashboard/perfil"
             className="flex items-center gap-2 rounded p-1 hover:bg-slate-100 dark:hover:bg-zinc-800"
           >
-            <Avatar src={session?.userAvatar} alt={session?.userName ?? "Perfil"} size="sm" />
-            <span className="truncate text-sm font-medium text-black dark:text-zinc-100">
-              {session?.userName ?? "Perfil"}
+            <Avatar src={mounted ? session?.userAvatar : undefined} alt={mounted ? (session?.userName ?? "Perfil") : "Perfil"} size="sm" />
+            <span className="truncate text-sm font-medium text-black dark:text-zinc-100" suppressHydrationWarning>
+              {mounted ? (session?.userName ?? "Perfil") : "Perfil"}
             </span>
           </Link>
           <button
